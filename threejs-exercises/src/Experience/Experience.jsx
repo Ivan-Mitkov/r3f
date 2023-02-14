@@ -1,15 +1,32 @@
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { extend, useFrame, useThree } from "@react-three/fiber";
+import { useRef, useEffect } from "react";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
+// to extend three  we need to use extend, choose the class and the name
+extend({ OrbitControls: OrbitControls });
 
 function Experience() {
+  // get the same state as in useFrame but only when component mount, not on each frame
+  const { camera, gl } = useThree();
+
   const cubeRef = useRef();
   const group = useRef();
+
   useFrame((state, delta) => {
     // for rorating with the same rate no matter what is the frame rate of the system
     cubeRef.current.rotation.y += delta;
     group.current.rotation.z += delta * 0.1;
     group.current.rotation.y += delta * 0.5;
   });
+
+  useEffect(() => {
+    const controls = new OrbitControls(camera, gl.domElement);
+    console.log("useEffect");
+
+    return () => {
+      controls.dispose();
+    };
+  }, [camera, gl]);
 
   return (
     <>
