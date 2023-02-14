@@ -1,7 +1,7 @@
 import { extend, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
+import CustomObject from "../CustomObject/CustomObject";
 // to extend three  we need to use extend, choose the class and the name
 extend({ OrbitControls: OrbitControls });
 
@@ -72,6 +72,7 @@ function Experience() {
           />
         </mesh>
       </group>
+      <CustomObject/>
     </>
   );
 }
