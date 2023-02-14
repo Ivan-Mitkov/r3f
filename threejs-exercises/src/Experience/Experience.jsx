@@ -21,7 +21,6 @@ function Experience() {
 
   useEffect(() => {
     const controls = new OrbitControls(camera, gl.domElement);
-    console.log("useEffect");
 
     return () => {
       controls.dispose();
@@ -30,17 +29,14 @@ function Experience() {
 
   return (
     <>
-      <mesh
-        rotation={[Math.PI * 1.5, Math.PI * 1, 0]}
-        position={[0, -4, -6]}
-        scale={[18, 18, 12]}
-      >
-        <planeGeometry args={[2.5, 2.5, 23, 23]} />
-        <meshBasicMaterial
+      <directionalLight position={[1, 2, 3]} intensity={1.5} />
+      <ambientLight intensity={0.5} />
+      <mesh rotation-x={-Math.PI * 0.5} position-y={-3} scale={20}>
+        <planeGeometry />
+        <meshStandardMaterial
           args={[
             {
               color: "green",
-              wireframe: true,
             },
           ]}
         />
@@ -53,11 +49,10 @@ function Experience() {
           scale={[1.5, 1.5, 1.5]}
         >
           <boxGeometry args={[1, 1, 1, 6, 6, 6]} />
-          <meshBasicMaterial
+          <meshStandardMaterial
             args={[
               {
                 color: "mediumpurple",
-                wireframe: true,
               },
             ]}
           />
@@ -68,11 +63,10 @@ function Experience() {
           scale={[1, 1, 1]}
         >
           <sphereGeometry args={[1.5, 32, 32]} />
-          <meshBasicMaterial
+          <meshStandardMaterial
             args={[
               {
                 color: "orange",
-                wireframe: true,
               },
             ]}
           />
