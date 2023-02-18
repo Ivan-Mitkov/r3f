@@ -12,11 +12,19 @@ function Experience() {
   const cubeRef = useRef();
   const group = useRef();
 
+  // the scene is already being drawn on each frame but we can’t see it because nothing is moving.
+  // We are going to rotate the cube, and to do that, we are going to use the useFrame hook provided by R3F
   useFrame((state, delta) => {
-    // for rorating with the same rate no matter what is the frame rate of the system
+    // const angle = state.clock.elapsedTime;
+    // for rotating with the same rate no matter what is the frame rate of the system
     cubeRef.current.rotation.y += delta;
     group.current.rotation.z += delta * 0.1;
     group.current.rotation.y += delta * 0.5;
+    // make camera rotate aoround the scene and look at at the center
+    //works better without orbit controls
+    // state.camera.position.x = Math.sin(angle) * 8;
+    // state.camera.position.z = Math.cos(angle) * 8;
+    // state.camera.lookAt(0, 0, 0);
   });
 
   useEffect(() => {
@@ -31,7 +39,7 @@ function Experience() {
     <>
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.5} />
-      <mesh rotation-x={-Math.PI * 0.5} position-y={-3} scale={20}>
+      <mesh rotation-x={-Math.PI * 0.5} position-y={-3} scale={50}>
         <planeGeometry />
         <meshStandardMaterial
           args={[
@@ -41,6 +49,9 @@ function Experience() {
           ]}
         />
       </mesh>
+      {
+        //group the cube and the sphere (not the floor) and then animate that group like a carousel
+      }
       <group ref={group}>
         <mesh
           ref={cubeRef}
@@ -72,7 +83,7 @@ function Experience() {
           />
         </mesh>
       </group>
-      <CustomObject/>
+      <CustomObject />
     </>
   );
 }
