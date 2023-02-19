@@ -3,10 +3,13 @@ import {
   OrbitControls,
   PivotControls,
   TransformControls,
+  Html,
 } from "@react-three/drei";
+import styles from "./Experience.module.scss";
 
 function Experience() {
   const cubeRef = useRef();
+  const sphereRef = useRef();
   const group = useRef();
 
   return (
@@ -37,12 +40,26 @@ function Experience() {
           depthTest={false}
           lineWidth={2}
           axisColors={["#9381ff", "#ff4d6d", "#7ae582"]}
-          scale={200}
-          fixed={true}
+          scale={1.2}
+          // fixed={true} if true scale is pixels
         >
-          <mesh rotation={[0, 0, 0]} position={[-2, 0, 0]} scale={[1, 1, 1]}>
+          <mesh
+            rotation={[0, 0, 0]}
+            position={[-2, 0, 0]}
+            scale={[1, 1, 1]}
+            ref={sphereRef}
+          >
             <sphereGeometry args={[1, 32, 32]} />
             <meshStandardMaterial color="orange" />
+            <Html
+              position={[1, 1, 1]}
+              wrapperClass={styles.label}
+              center
+              distanceFactor={6}
+              occlude={[cubeRef, sphereRef]}
+            >
+              That's a sphere
+            </Html>
           </mesh>
         </PivotControls>
       </group>
